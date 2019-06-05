@@ -1,0 +1,36 @@
+.divSpace{
+    width: 80%;
+    padding: 5%;
+    }
+
+form{
+    width: 80%;
+    text-align: left;
+    padding-top: 2%;
+}
+
+.dropdown-divider{
+width: 80%;
+}
+a{
+    width: 80%;
+    align-content: center;
+}
+
+body{
+    color: aqua;
+    margin: auto;
+    width: 80%;
+    padding-top: 1%;
+    padding-left: 5%;
+    text-align: left;
+    background: #191919;
+}
+
+.btn{
+    margin-top: 1%;
+}
+
+.div2{
+align-content: left;
+}

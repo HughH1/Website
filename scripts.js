@@ -1,6 +1,4 @@
 
-
-
 function fetchData(url) {
     return new Promise((resolve, reject) => {
         const req = new XMLHttpRequest();
@@ -19,15 +17,39 @@ function fetchData(url) {
     })
 }
 
+function nameCheck(input) {
+    return fetchData("http://localhost:8080/JavaEEServer-1.0/api/accounts/").then((user) => {
+        let myName = JSON.parse(user.responseText);
+        for (let obj of myName) {
+            if (obj.name === input) {
+                return obj;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+}
+
+
 
 function theInput() {
     let inp = document.getElementById("inputName").value;
-    let account = new Account(inp);
-    // console.log();
-    myAccount = JSON.stringify(account);
-    sendData(myAccount, "http://localhost:8080/JavaEEServer-1.0/api/accounts/");
-    console.log(myAccount);
-    // document.getElementById("inputName").innerText = JSON.stringify(inp);
+    nameCheck(inp).then((myAccount) => {
+        if (myAccount) {
+            window.sessionStorage.setItem("Name", myAccount);
+            window.location.href = 'file:///C:/Users/Admin/Documents/WebDev/website%20with%20db/view.html';
+        }
+        else {
+            let account = new Account(inp);
+            let myAccount = JSON.stringify(account);
+            sendData(myAccount, "http://localhost:8080/JavaEEServer-1.0/api/accounts/").then(({ responseText }) => {
+                console.log(myAccount);
+                window.sessionStorage.setItem("Name", myAccount);
+                window.location.href = 'file:///C:/Users/Admin/Documents/WebDev/website%20with%20db/view.html';
+            });
+        }
+    });
 }
 
 
@@ -47,5 +69,5 @@ function sendData(data, url) {
         req.open("POST", url);
         req.setRequestHeader("Content-Type", "application/json");
         req.send(data);
-    })
+    });
 }
